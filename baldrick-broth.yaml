@@ -10,6 +10,8 @@ model:
       - Take care of the boilerplate 
     links:
       - "[Npm dependencies](DEPENDENCIES.md)"
+    tags:
+      - image-hero
   github:
     account: flarebyte
     name: faora-kai

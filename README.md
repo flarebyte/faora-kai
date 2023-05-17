@@ -15,6 +15,8 @@ status](https://github.com/flarebyte/faora-kai/actions/workflows/main.yml/badge.
 
 Helper functions for zod libraries
 
+![Hero image for faora-kai](faora-kai-hero-512.jpeg)
+
 Highlights:
 
 -   Take care of the boilerplate
