@@ -1,10 +1,8 @@
-import { z } from 'zod';
-import { type PrimitiveFieldValidator } from './model.js';
+import {z} from 'zod';
+import {type PrimitiveFieldValidator} from './model.js';
 
-/** string sizes [
-  10, 20, 30, 50, 80, 140, 200, 400, 600, 1000, 1600, 2600, 5000,
-] */
-type PrimtiveFieldKey =
+/** String sizes [ 10, 20, 30, 50, 80, 140, 200, 400, 600, 1000, 1600, 2600, 5000] */
+type StringFieldKey =
   | 'string1To10'
   | 'string1To20'
   | 'string1To30'
@@ -19,7 +17,7 @@ type PrimtiveFieldKey =
   | 'string1To2600'
   | 'string1To5000';
 
-const primitiveFields: PrimitiveFieldValidator<PrimtiveFieldKey> = {
+export const stringFields: PrimitiveFieldValidator<StringFieldKey> = {
   string1To10: z.string().min(1).max(10),
   string1To20: z.string().min(1).max(20),
   string1To30: z.string().min(1).max(30),
