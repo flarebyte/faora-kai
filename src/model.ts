@@ -1,3 +1,23 @@
-import { z } from 'zod';
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+import {type z} from 'zod';
 
-export type PrimitiveFieldValidator<K> = Record<K, z.ZodString>;
+export type PrimitiveFieldValidator<K extends string | number | symbol> =
+  Record<K, z.ZodString>;
+
+interface Success<A> {
+  status: 'success';
+  value: A;
+}
+interface Failure<E> {
+  status: 'failure';
+  error: E;
+}
+
+export type ValidationError = {
+  message: string;
+  path: string;
+};
+
+export type Result<A, E> = Success<A> | Failure<E>;
+
+export type ModelValidation<M> = Result<M, ValidationError[]>;
