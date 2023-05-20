@@ -23,16 +23,22 @@ Highlights:
 
 ## Documentation and links
 
--   [Code Maintenance](MAINTENANCE.md)
+-   [Code Maintenance :wrench:](MAINTENANCE.md)
 -   [Code Of Conduct](CODE_OF_CONDUCT.md)
 -   [Api for faora-kai](API.md)
--   [Contributing](CONTRIBUTING.md)
--   [Glossary](GLOSSARY.md)
--   [Diagram for the code base](INTERNAL.md)
--   [Vocabulary used in the code base](CODE_VOCABULARY.md)
--   [Architectural Decision Records](DECISIONS.md)
--   [Contributors](https://github.com/flarebyte/faora-kai/graphs/contributors)
+-   [Contributing :busts\_in\_silhouette: :construction:](CONTRIBUTING.md)
+-   [Diagram for the code base :triangular\_ruler:](INTERNAL.md)
+-   [Vocabulary used in the code base :book:](CODE_VOCABULARY.md)
+-   [Architectural Decision Records :memo:](DECISIONS.md)
+-   [Contributors
+    :busts\_in\_silhouette:](https://github.com/flarebyte/faora-kai/graphs/contributors)
 -   [Dependencies](https://github.com/flarebyte/faora-kai/network/dependencies)
+-   [Glossary
+    :book:](https://github.com/flarebyte/overview/blob/main/GLOSSARY.md)
+-   [Software engineering principles
+    :gem:](https://github.com/flarebyte/overview/blob/main/PRINCIPLES.md)
+-   [Overview of Flarebyte.com ecosystem
+    :factory:](https://github.com/flarebyte/overview)
 -   [Npm dependencies](DEPENDENCIES.md)
 
 ## Related
