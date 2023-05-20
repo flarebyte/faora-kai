@@ -20,6 +20,6 @@ test('safeParse should parse correct data', () => {
     schema,
     formatting: 'standard',
   });
-  assert.equal(result.status, 'success');
-  assert.deepEqual(result.status === 'success' && result.value, content);
+  assert.strictEqual(result.status, 'success');
+  assert.deepStrictEqual(result.status === 'success' && result.value, content);
 });
