@@ -1,7 +1,9 @@
 import {type z} from 'zod';
-import {type ValidationError} from './model.js';
+import {type FormatZodMessage, type ValidationError} from './model.js';
 
-export const formatMessage = (issue: z.ZodIssue): ValidationError => {
+export const formatMessage: FormatZodMessage = (
+  issue: z.ZodIssue
+): ValidationError => {
   const path = issue.path.join('.');
   switch (issue.code) {
     case 'invalid_type': {
@@ -96,17 +98,4 @@ export const formatMessage = (issue: z.ZodIssue): ValidationError => {
       };
     }
   }
-};
-
-export const safeParseBuild = (content: unknown): PestModelValidation => {
-  const result = schema.safeParse(content);
-  if (result.success) {
-    return succeed(result.data);
-  }
-
-  const {
-    error: {issues},
-  } = result;
-  const errors = issues.map(formatMessage);
-  return fail(errors);
 };

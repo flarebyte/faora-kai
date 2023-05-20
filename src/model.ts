@@ -21,3 +21,5 @@ export type ValidationError = {
 export type Result<A, E> = Success<A> | Failure<E>;
 
 export type ModelValidation<M> = Result<M, ValidationError[]>;
+
+export type FormatZodMessage = (issue: z.ZodIssue) => ValidationError;
