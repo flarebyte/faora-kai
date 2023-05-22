@@ -1,6 +1,10 @@
 import {type ZodSchema} from 'zod';
 import {formatMessage} from '../format-message.js';
-import {type FormatZodMessage, type ModelValidation} from './model.js';
+import {
+  type Success,
+  type FormatZodMessage,
+  type ModelValidation,
+} from './model.js';
 
 type ZodMessageFormatting = 'standard' | 'privacy-aware';
 
@@ -25,7 +29,7 @@ const getFormatter = (formatting: ZodMessageFormatting): FormatZodMessage => {
   }
 };
 
-export function safeParse<M>(
+export function safeParse<M extends Record<string, unknown>>(
   content: unknown,
   opts: SafeParseOpts
 ): ModelValidation<M> {
@@ -48,4 +52,10 @@ export function safeParse<M>(
 
   const failure: ModelValidation<M> = {error: errors, status: 'failure'};
   return failure;
+}
+
+export function isParsingSuccessful<M extends Record<string, unknown>>(
+  validationResult: ModelValidation<M>
+): validationResult is Success<M> {
+  return validationResult.status === 'success';
 }

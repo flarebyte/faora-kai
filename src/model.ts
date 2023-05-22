@@ -4,7 +4,7 @@ import {type z} from 'zod';
 export type PrimitiveFieldValidator<K extends string | number | symbol> =
   Record<K, z.ZodString>;
 
-interface Success<A> {
+export interface Success<A> {
   status: 'success';
   value: A;
 }
@@ -20,6 +20,9 @@ export type ValidationError = {
 
 export type Result<A, E> = Success<A> | Failure<E>;
 
-export type ModelValidation<M> = Result<M, ValidationError[]>;
+export type ModelValidation<M extends Record<string, unknown>> = Result<
+  M,
+  ValidationError[]
+>;
 
 export type FormatZodMessage = (issue: z.ZodIssue) => ValidationError;

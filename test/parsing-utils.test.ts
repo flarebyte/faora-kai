@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert';
 import {z} from 'zod';
 import {stringFields} from '../src/primitive-fields.js';
-import {safeParse} from '../src/parsing-utils.js';
+import {isParsingSuccessful, safeParse} from '../src/parsing-utils.js';
 
 const schema = z.object({
   name: stringFields.string1To10,
@@ -20,6 +20,6 @@ test('safeParse should parse correct data', () => {
     schema,
     formatting: 'standard',
   });
-  assert.strictEqual(result.status, 'success');
+  assert.ok(Boolean(isParsingSuccessful(result)), '');
   assert.deepStrictEqual(result.status === 'success' && result.value, content);
 });
