@@ -1,8 +1,9 @@
-import {test} from 'node:test';
-import assert from 'node:assert';
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import {describe, test} from 'node:test';
 import {z} from 'zod';
 import {stringFields} from '../src/primitive-fields.js';
-import {isParsingSuccessful, safeParse} from '../src/parsing-utils.js';
+import {safeParse} from '../src/parsing-utils.js';
+import {assertSuccessfulResult, assertFailedResult} from './assert-utils.js';
 
 const schema = z.object({
   name: stringFields.string1To10,
@@ -11,15 +12,28 @@ const schema = z.object({
 
 type TestSchema = z.infer<typeof schema>;
 
-test('safeParse should parse correct data', () => {
-  const content = {
-    name: 'some-name',
-    tags: ['tag1'],
-  };
-  const result = safeParse<TestSchema>(content, {
-    schema,
-    formatting: 'standard',
+describe('safeParse', () => {
+  test('safeParse should parse correct data', () => {
+    const content = {
+      name: 'some-name',
+      tags: ['tag1'],
+    };
+    const result = safeParse<TestSchema>(content, {
+      schema,
+      formatting: 'standard',
+    });
+    assertSuccessfulResult(result, content);
   });
-  assert.ok(Boolean(isParsingSuccessful(result)), '');
-  assert.deepStrictEqual(result.status === 'success' && result.value, content);
+
+  test('safeParse should reject invalid data', () => {
+    const content = {
+      name: '',
+      tags: ['tag1'],
+    };
+    const result = safeParse<TestSchema>(content, {
+      schema,
+      formatting: 'standard',
+    });
+    assertFailedResult(result, []);
+  });
 });
