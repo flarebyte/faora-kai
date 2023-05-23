@@ -6,26 +6,26 @@ export function assertSuccessfulResult<A, E>(
   expected: A
 ) {
   if (actual.status !== 'success') {
-    assert.equal(actual.status, 'success');
+    assert.strictEqual(actual.status, 'success');
     return;
   }
 
   const jsonActual = JSON.stringify(actual.value);
   const jsonExpected = JSON.stringify(expected);
   if (jsonExpected !== jsonActual) {
-    assert.equal(jsonActual, jsonExpected);
+    assert.strictEqual(jsonActual, jsonExpected);
   }
 }
 
 export function assertFailedResult<A, E>(actual: Result<A, E>, expected: E) {
   if (actual.status !== 'failure') {
-    assert.equal(actual.status, 'failure');
+    assert.strictEqual(actual.status, 'failure');
     return;
   }
 
   const jsonActual = JSON.stringify(actual.error);
   const jsonExpected = JSON.stringify(expected);
   if (jsonExpected !== jsonActual) {
-    assert.equal(jsonActual, jsonExpected);
+    assert.strictEqual(jsonActual, jsonExpected);
   }
 }
