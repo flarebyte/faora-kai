@@ -15,6 +15,10 @@ type TestSchema = z.infer<typeof schema>;
 
 const largeString = (count: number) => 'a'.repeat(count);
 
+const assertOpts = {
+  stringify: true,
+};
+
 test('safeParse should parse correct data', () => {
   const content = {
     name: 'some-tag',
@@ -25,27 +29,31 @@ test('safeParse should parse correct data', () => {
     schema,
     formatting: 'standard',
   });
-  assertSuccessfulResult(result, content);
+  assertSuccessfulResult(result, content, assertOpts);
 });
 
-test('safeParse should reject string too small', () => {
-  const content = {
-    name: '',
-    tags: ['tag1'],
-    website: 'https://website.com',
-  };
-  const result = safeParse<TestSchema>(content, {
-    schema,
-    formatting: 'standard',
-  });
-  assertFailedResult(result, [
-    {
-      path: 'name',
-      message:
-        'The string for the field is too small; I would expect the minimum to be 1',
-    },
-  ]);
-});
+test(
+  'safeParse should reject string too small',
+  () => {
+    const content = {
+      name: '',
+      tags: ['tag1'],
+      website: 'https://website.com',
+    };
+    const result = safeParse<TestSchema>(content, {
+      schema,
+      formatting: 'standard',
+    });
+    assertFailedResult(result, [
+      {
+        path: 'name',
+        message:
+          'The string for the field is too small; I would expect the minimum to be 1',
+      },
+    ]);
+  },
+  assertOpts
+);
 
 test('safeParse should reject string too big', () => {
   const content = {
@@ -57,11 +65,38 @@ test('safeParse should reject string too big', () => {
     schema,
     formatting: 'standard',
   });
-  assertFailedResult(result, [
-    {
-      path: 'name',
-      message:
-        'The string for the field is too big; I would expect the maximum to be 10',
-    },
-  ]);
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'name',
+        message:
+          'The string for the field is too big; I would expect the maximum to be 10',
+      },
+    ],
+    assertOpts
+  );
+});
+
+test('safeParse should reject incorrect type', () => {
+  const content = {
+    name: 18,
+    tags: ['tag1'],
+    website: 'https://website.com',
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'standard',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'name',
+        message:
+          'The type for the field is invalid; I would expect string instead of number',
+      },
+    ],
+    assertOpts
+  );
 });
