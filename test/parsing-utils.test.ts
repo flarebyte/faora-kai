@@ -16,6 +16,15 @@ const dayUnionField = z.discriminatedUnion('kind', [
   }),
 ]);
 
+const jourUnionField = z.union([
+  z.object({
+    lundi: stringFields.string1To10,
+  }),
+  z.object({
+    mardi: stringFields.string1To10,
+  }),
+]);
+
 const schema = z.object({
   kind: z.literal('test'),
   name: stringFields.string1To10,
@@ -23,6 +32,7 @@ const schema = z.object({
   website: stringFields.string1To50.url(),
   color: z.enum(['blue', 'orange', 'red']).optional(),
   day: dayUnionField,
+  jour: jourUnionField,
 });
 
 type TestSchema = z.infer<typeof schema>;
@@ -41,6 +51,9 @@ const validContent = {
   day: {
     kind: 'monday',
     monday: 'lundi',
+  },
+  jour: {
+    lundi: 'monday',
   },
 };
 test('safeParse should parse correct data', () => {
@@ -203,6 +216,30 @@ test('safeParse should reject invalid discriminatedUnion', () => {
         path: 'day.kind',
         message:
           'The union discriminator for the object is invalid; I would expect any of monday,tuesday',
+      },
+    ],
+    assertOpts
+  );
+});
+
+test('safeParse should reject invalid union', () => {
+  const content = {
+    ...validContent,
+    jour: {
+      jeudi: 'thursday',
+    },
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'standard',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'jour',
+        message:
+          'The union for the field is invalid; I would check Required,Required',
       },
     ],
     assertOpts
