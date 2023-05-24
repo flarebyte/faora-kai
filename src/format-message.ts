@@ -1,4 +1,4 @@
-import {type StringValidation, type z} from 'zod';
+import {type Primitive, type StringValidation, type z} from 'zod';
 import {type FormatZodMessage, type ValidationError} from './model.js';
 
 const formatArray = (values: Array<string | number>) =>
@@ -28,6 +28,29 @@ const formatUnknown = (value: unknown) => {
     }
   }
 };
+
+const formatPrimitive = (value: Primitive) => {
+  switch (typeof value) {
+    case 'string': {
+      return value;
+    }
+
+    case 'number': {
+      return `${value}`;
+    }
+
+    case 'boolean': {
+      return value ? 'true' : 'false';
+    }
+
+    default: {
+      return `typeof ${typeof value}`;
+    }
+  }
+};
+
+const formatPrimitives = (values: Primitive[]) =>
+  values.map(formatPrimitive).join(',');
 
 export const formatMessage: FormatZodMessage = (
   issue: z.ZodIssue
@@ -83,7 +106,7 @@ export const formatMessage: FormatZodMessage = (
         path,
         message: [
           'The union discriminator for the object is invalid',
-          `I would expect any of ${issue.options}`,
+          `I would expect any of ${formatPrimitives(issue.options)}`,
         ].join('; '),
       };
     }

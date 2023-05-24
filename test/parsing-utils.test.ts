@@ -5,12 +5,24 @@ import {stringFields} from '../src/primitive-fields.js';
 import {safeParse} from '../src/parsing-utils.js';
 import {assertSuccessfulResult, assertFailedResult} from './assert-utils.js';
 
+const dayUnionField = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('monday'),
+    monday: stringFields.string1To10,
+  }),
+  z.object({
+    kind: z.literal('tuesday'),
+    tuesday: stringFields.string1To10,
+  }),
+]);
+
 const schema = z.object({
   kind: z.literal('test'),
   name: stringFields.string1To10,
   tags: z.array(stringFields.string1To20).min(1),
   website: stringFields.string1To50.url(),
   color: z.enum(['blue', 'orange', 'red']).optional(),
+  day: dayUnionField,
 });
 
 type TestSchema = z.infer<typeof schema>;
@@ -26,6 +38,10 @@ const validContent = {
   name: 'some-tag',
   tags: ['tag1'],
   website: 'https://website.com',
+  day: {
+    kind: 'monday',
+    monday: 'lundi',
+  },
 };
 test('safeParse should parse correct data', () => {
   const content = {
@@ -162,6 +178,31 @@ test('safeParse should reject invalid literal', () => {
       {
         path: 'kind',
         message: 'The literal for the field is invalid; I would expect test',
+      },
+    ],
+    assertOpts
+  );
+});
+
+test('safeParse should reject invalid discriminatedUnion', () => {
+  const content = {
+    ...validContent,
+    day: {
+      kind: 'sunday',
+      sunday: 'dimanche',
+    },
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'standard',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'day.kind',
+        message:
+          'The union discriminator for the object is invalid; I would expect any of monday,tuesday',
       },
     ],
     assertOpts
