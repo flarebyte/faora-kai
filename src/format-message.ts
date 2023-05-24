@@ -1,5 +1,13 @@
-import {type z} from 'zod';
+import {type StringValidation, type z} from 'zod';
 import {type FormatZodMessage, type ValidationError} from './model.js';
+
+const formatArray = (values: Array<string | number>) =>
+  values.map((value) => `${value}`).join(',');
+
+const formatStringValidation = (stringValidation: StringValidation) =>
+  typeof stringValidation === 'string'
+    ? stringValidation
+    : JSON.stringify(stringValidation);
 
 export const formatMessage: FormatZodMessage = (
   issue: z.ZodIssue
@@ -21,7 +29,9 @@ export const formatMessage: FormatZodMessage = (
         path,
         message: [
           'The string for the field is invalid',
-          `${issue.message} and ${issue.validation}`,
+          `${issue.message} with constraint ${formatStringValidation(
+            issue.validation
+          )}`,
         ].join('; '),
       };
     }
@@ -31,7 +41,9 @@ export const formatMessage: FormatZodMessage = (
         path,
         message: [
           'The enum for the field is invalid',
-          `I would expect any of ${issue.options} instead of ${issue.received}`,
+          `I would expect any of ${formatArray(issue.options)} instead of ${
+            issue.received
+          }`,
         ].join('; '),
       };
     }

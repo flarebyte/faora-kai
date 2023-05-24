@@ -20,11 +20,14 @@ const assertOpts = {
   stringify: true,
 };
 
+const validContent = {
+  name: 'some-tag',
+  tags: ['tag1'],
+  website: 'https://website.com',
+};
 test('safeParse should parse correct data', () => {
   const content = {
-    name: 'some-tag',
-    tags: ['tag1'],
-    website: 'https://website.com',
+    ...validContent,
   };
   const result = safeParse<TestSchema>(content, {
     schema,
@@ -37,9 +40,8 @@ test(
   'safeParse should reject string too small',
   () => {
     const content = {
+      ...validContent,
       name: '',
-      tags: ['tag1'],
-      website: 'https://website.com',
     };
     const result = safeParse<TestSchema>(content, {
       schema,
@@ -58,9 +60,8 @@ test(
 
 test('safeParse should reject string too big', () => {
   const content = {
+    ...validContent,
     name: largeString(100),
-    tags: ['tag1'],
-    website: 'https://website.com',
   };
   const result = safeParse<TestSchema>(content, {
     schema,
@@ -81,9 +82,8 @@ test('safeParse should reject string too big', () => {
 
 test('safeParse should reject incorrect type', () => {
   const content = {
+    ...validContent,
     name: 18,
-    tags: ['tag1'],
-    website: 'https://website.com',
   };
   const result = safeParse<TestSchema>(content, {
     schema,
@@ -104,9 +104,7 @@ test('safeParse should reject incorrect type', () => {
 
 test('safeParse should reject invalid enum', () => {
   const content = {
-    name: 'some-name',
-    tags: ['tag1'],
-    website: 'https://website.com',
+    ...validContent,
     color: 'purple',
   };
   const result = safeParse<TestSchema>(content, {
@@ -120,6 +118,27 @@ test('safeParse should reject invalid enum', () => {
         path: 'color',
         message:
           'The enum for the field is invalid; I would expect any of blue,orange,red instead of purple',
+      },
+    ],
+    assertOpts
+  );
+});
+
+test('safeParse should reject invalid url', () => {
+  const content = {
+    ...validContent,
+    website: 'not-a-website.com',
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'standard',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'website',
+        message: 'The string for the field is invalid; Invalid url and url',
       },
     ],
     assertOpts
