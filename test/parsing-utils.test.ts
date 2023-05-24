@@ -6,6 +6,7 @@ import {safeParse} from '../src/parsing-utils.js';
 import {assertSuccessfulResult, assertFailedResult} from './assert-utils.js';
 
 const schema = z.object({
+  kind: z.literal('test'),
   name: stringFields.string1To10,
   tags: z.array(stringFields.string1To20).min(1),
   website: stringFields.string1To50.url(),
@@ -21,6 +22,7 @@ const assertOpts = {
 };
 
 const validContent = {
+  kind: 'test',
   name: 'some-tag',
   tags: ['tag1'],
   website: 'https://website.com',
@@ -139,6 +141,27 @@ test('safeParse should reject invalid url', () => {
       {
         path: 'website',
         message: 'The string for the field is invalid; Invalid url and url',
+      },
+    ],
+    assertOpts
+  );
+});
+
+test('safeParse should reject invalid literal', () => {
+  const content = {
+    ...validContent,
+    kind: 'not-supported',
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'standard',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'kind',
+        message: 'The literal for the field is invalid; I would expect test',
       },
     ],
     assertOpts

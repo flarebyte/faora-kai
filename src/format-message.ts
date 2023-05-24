@@ -9,6 +9,26 @@ const formatStringValidation = (stringValidation: StringValidation) =>
     ? stringValidation
     : JSON.stringify(stringValidation);
 
+const formatUnknown = (value: unknown) => {
+  switch (typeof value) {
+    case 'string': {
+      return value;
+    }
+
+    case 'number': {
+      return `${value}`;
+    }
+
+    case 'boolean': {
+      return value ? 'true' : 'false';
+    }
+
+    default: {
+      return `typeof ${typeof value}`;
+    }
+  }
+};
+
 export const formatMessage: FormatZodMessage = (
   issue: z.ZodIssue
 ): ValidationError => {
@@ -53,7 +73,7 @@ export const formatMessage: FormatZodMessage = (
         path,
         message: [
           'The literal for the field is invalid',
-          `I would expect ${issue.expected}`,
+          `I would expect ${formatUnknown(issue.expected)}`,
         ].join('; '),
       };
     }
