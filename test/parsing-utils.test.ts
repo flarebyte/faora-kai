@@ -9,6 +9,7 @@ const schema = z.object({
   name: stringFields.string1To10,
   tags: z.array(stringFields.string1To20).min(1),
   website: stringFields.string1To50.url(),
+  color: z.enum(['blue', 'orange', 'red']).optional(),
 });
 
 type TestSchema = z.infer<typeof schema>;
@@ -95,6 +96,30 @@ test('safeParse should reject incorrect type', () => {
         path: 'name',
         message:
           'The type for the field is invalid; I would expect string instead of number',
+      },
+    ],
+    assertOpts
+  );
+});
+
+test('safeParse should reject invalid enum', () => {
+  const content = {
+    name: 'some-name',
+    tags: ['tag1'],
+    website: 'https://website.com',
+    color: 'purple',
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'standard',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'color',
+        message:
+          'The enum for the field is invalid; I would expect any of blue,orange,red instead of purple',
       },
     ],
     assertOpts
