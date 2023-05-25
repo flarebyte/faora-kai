@@ -43,7 +43,7 @@ const assertOpts = {
   stringify: true,
 };
 
-const validContent = {
+const validContent: TestSchema = {
   kind: 'test',
   name: 'some-tag',
   tags: ['tag1'],
@@ -67,27 +67,27 @@ test('safeParse should parse correct data', () => {
   assertSuccessfulResult(result, content, assertOpts);
 });
 
-test(
-  'safeParse should reject string too small',
-  () => {
-    const content = {
-      ...validContent,
-      name: '',
-    };
-    const result = safeParse<TestSchema>(content, {
-      schema,
-      formatting: 'standard',
-    });
-    assertFailedResult(result, [
+test('safeParse should reject string too small', () => {
+  const content = {
+    ...validContent,
+    name: '',
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'standard',
+  });
+  assertFailedResult(
+    result,
+    [
       {
         path: 'name',
         message:
           'The string for the field is too small; I would expect the minimum to be 1',
       },
-    ]);
-  },
-  assertOpts
-);
+    ],
+    assertOpts
+  );
+});
 
 test('safeParse should reject string too big', () => {
   const content = {

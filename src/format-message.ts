@@ -52,6 +52,15 @@ const formatPrimitive = (value: Primitive) => {
 const formatPrimitives = (values: Primitive[]) =>
   values.map(formatPrimitive).join(',');
 
+function extractUnionErrors(
+  issue: z.ZodInvalidUnionIssue & {fatal?: boolean | undefined; message: string}
+): string {
+  return issue.unionErrors
+    .flatMap((err) => err.issues)
+    .map((i) => i.message + '???')
+    .join('.');
+}
+
 export const formatMessage: FormatZodMessage = (
   issue: z.ZodIssue
 ): ValidationError => {
@@ -116,9 +125,7 @@ export const formatMessage: FormatZodMessage = (
         path,
         message: [
           'The union for the field is invalid',
-          `I would check ${issue.unionErrors
-            .flatMap((err) => err.issues)
-            .map((i) => i.message)}`,
+          `I would check ${extractUnionErrors(issue)}`,
         ].join('; '),
       };
     }
