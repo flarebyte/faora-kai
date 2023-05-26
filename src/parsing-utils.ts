@@ -5,7 +5,7 @@ import {
   type FormatZodMessage,
   type ModelValidation,
 } from './model.js';
-import { formatMessageWithPrivacy } from './format-message-with-privacy.js';
+import {formatMessageWithPrivacy} from './format-message-with-privacy.js';
 
 type ZodMessageFormatting = 'standard' | 'privacy-aware';
 

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {appendFileSync} from 'node:fs';
 import {type Result} from '../src/model.js';
 
 type AssertOpts = {
@@ -42,6 +43,7 @@ export function assertFailedResult<A, E>(
   if (shouldStringify) {
     const jsonActual = JSON.stringify(actual.error);
     const jsonExpected = JSON.stringify(expected);
+    appendFileSync('temp/test.log', jsonExpected + '\n\n', {encoding: 'utf8'});
     if (jsonExpected !== jsonActual) {
       assert.strictEqual(jsonActual, jsonExpected);
     }

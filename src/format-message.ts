@@ -134,7 +134,7 @@ export const formatMessage: FormatZodMessage = (
       return {
         path,
         message: [
-          `The ${issue.type} for the field is too big`,
+          `The ${issue.type} for the field is way too big`,
           `I would expect the maximum to be ${issue.maximum}`,
         ].join('; '),
       };
