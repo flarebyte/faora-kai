@@ -24,6 +24,8 @@ const privacyFirstMessages = {
   unrecognized_keys: 'The keys are not recognized',
   custom: 'The custom validation function did not pass',
   default: 'The type for the field is incorrect',
+  too_big: 'The value for the field is too big',
+  too_small: 'The value for the field is too small',
 };
 
 export const formatMessageWithPrivacy: FormatZodMessage = (
@@ -82,14 +84,18 @@ export const formatMessageWithPrivacy: FormatZodMessage = (
     case 'too_big': {
       return {
         path,
-        message: `The ${issue.type} for the field is too big`,
+        message: [privacyFirstMessages.too_big, `Type is ${issue.type}`].join(
+          '; '
+        ),
       };
     }
 
     case 'too_small': {
       return {
         path,
-        message: `The ${issue.type} for the field is too small`,
+        message: [privacyFirstMessages.too_small, `Type is ${issue.type}`].join(
+          '; '
+        ),
       };
     }
 

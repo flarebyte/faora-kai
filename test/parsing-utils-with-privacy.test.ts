@@ -35,7 +35,7 @@ test('safeParse should reject string too small', () => {
     [
       {
         path: 'name',
-        message: 'The string for the field is too small',
+        message: 'The value for the field is too small; Type is string',
       },
     ],
     assertOpts
@@ -56,7 +56,7 @@ test('safeParse should reject string too big', () => {
     [
       {
         path: 'name',
-        message: 'The string for the field is too big',
+        message: 'The value for the field is too big; Type is string',
       },
     ],
     assertOpts
@@ -188,7 +188,7 @@ test('safeParse should reject number under the minimum', () => {
     [
       {
         path: 'rank',
-        message: 'The number for the field is too small',
+        message: 'The value for the field is too small; Type is number',
       },
       {
         path: 'rank',
@@ -243,7 +243,7 @@ test('safeParse should reject number that beyond safe integer', () => {
     [
       {
         path: 'negRank',
-        message: 'The number for the field is too small',
+        message: 'The value for the field is too small; Type is number',
       },
     ],
     assertOpts
@@ -336,7 +336,7 @@ test('safeParse should reject invalid keys', () => {
     [
       {
         path: 'activities.longlonglonglongKey',
-        message: 'The string for the field is too big',
+        message: 'The value for the field is too big; Type is string',
       },
     ],
     assertOpts
