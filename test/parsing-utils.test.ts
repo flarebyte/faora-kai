@@ -176,7 +176,7 @@ test('safeParse should reject number under the minimum', () => {
       {
         path: 'rank',
         message:
-          'The number is not right multiple of; Number must be a multiple of 3',
+          'The number is not the right multiple of; Number must be a multiple of 3',
       },
     ],
     assertOpts
@@ -203,7 +203,7 @@ test('safeParse should reject number that are not finite', () => {
       {
         path: 'rank',
         message:
-          'The number is not right multiple of; Number must be a multiple of 3',
+          'The number is not the right multiple of; Number must be a multiple of 3',
       },
       {
         path: 'rank',

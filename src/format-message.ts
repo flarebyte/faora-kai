@@ -184,7 +184,7 @@ export const formatMessage: FormatZodMessage = (
       return {
         path,
         message: [
-          'The number is not right multiple of',
+          'The number is not the right multiple of',
           `${issue.message}`,
         ].join('; '),
       };

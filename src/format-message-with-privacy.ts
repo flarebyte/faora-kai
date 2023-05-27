@@ -73,6 +73,62 @@ export const formatMessageWithPrivacy: FormatZodMessage = (
       };
     }
 
+    case 'invalid_arguments': {
+      return {
+        path,
+        message: 'The arguments are invalid',
+      };
+    }
+
+    case 'invalid_return_type': {
+      return {
+        path,
+        message: 'The return type is invalid',
+      };
+    }
+
+    case 'invalid_date': {
+      return {
+        path,
+        message: 'The date is invalid',
+      };
+    }
+
+    case 'not_finite': {
+      return {
+        path,
+        message: 'The number is not finite',
+      };
+    }
+
+    case 'invalid_intersection_types': {
+      return {
+        path,
+        message: 'The intersection types are invalid',
+      };
+    }
+
+    case 'not_multiple_of': {
+      return {
+        path,
+        message: 'The number is not the right multiple of',
+      };
+    }
+
+    case 'unrecognized_keys': {
+      return {
+        path,
+        message: 'The keys are not recognized',
+      };
+    }
+
+    case 'custom': {
+      return {
+        path,
+        message: 'The custom validation function did not pass',
+      };
+    }
+
     default: {
       return {
         path,

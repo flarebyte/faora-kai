@@ -132,6 +132,61 @@ test('safeParse should reject invalid url', () => {
   );
 });
 
+test('safeParse should reject number under the minimum', () => {
+  const content = {
+    ...validContent,
+    rank: 1,
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'privacy-aware',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'rank',
+        message: 'The number for the field is too small',
+      },
+      {
+        path: 'rank',
+        message: 'The number is not the right multiple of',
+      },
+    ],
+    assertOpts
+  );
+});
+
+test('safeParse should reject number that are not finite', () => {
+  const content = {
+    ...validContent,
+    rank: Number.POSITIVE_INFINITY,
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'privacy-aware',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'rank',
+        message:
+          'The type for the field is invalid; I would expect integer instead of float',
+      },
+      {
+        path: 'rank',
+        message: 'The number is not the right multiple of',
+      },
+      {
+        path: 'rank',
+        message: 'The number is not finite',
+      },
+    ],
+    assertOpts
+  );
+});
+
 test('safeParse should reject invalid literal', () => {
   const content = {
     ...validContent,
