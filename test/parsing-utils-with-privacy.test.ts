@@ -1,61 +1,15 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import {test} from 'node:test';
-import {z} from 'zod';
-import {stringFields} from '../src/primitive-fields.js';
 import {safeParse} from '../src/parsing-utils.js';
 import {assertSuccessfulResult, assertFailedResult} from './assert-utils.js';
+import {
+  schema,
+  validContent,
+  type TestSchema,
+  assertOpts,
+  largeString,
+} from './fixture-content.js';
 
-const dayUnionField = z.discriminatedUnion('kind', [
-  z.object({
-    kind: z.literal('monday'),
-    monday: stringFields.string1To10,
-  }),
-  z.object({
-    kind: z.literal('tuesday'),
-    tuesday: stringFields.string1To10,
-  }),
-]);
-
-const jourUnionField = z.union([
-  z.object({
-    lundi: stringFields.string1To10,
-  }),
-  z.object({
-    mardi: stringFields.string1To10,
-  }),
-]);
-
-const schema = z.object({
-  kind: z.literal('test'),
-  name: stringFields.string1To10,
-  tags: z.array(stringFields.string1To20).min(1),
-  website: stringFields.string1To50.url(),
-  color: z.enum(['blue', 'orange', 'red']).optional(),
-  day: dayUnionField,
-  jour: jourUnionField,
-});
-
-type TestSchema = z.infer<typeof schema>;
-
-const largeString = (count: number) => 'a'.repeat(count);
-
-const assertOpts = {
-  stringify: true,
-};
-
-const validContent: TestSchema = {
-  kind: 'test',
-  name: 'some-tag',
-  tags: ['tag1'],
-  website: 'https://website.com',
-  day: {
-    kind: 'monday',
-    monday: 'lundi',
-  },
-  jour: {
-    lundi: 'monday',
-  },
-};
 test('safeParse should parse correct data', () => {
   const content = {
     ...validContent,
@@ -167,6 +121,11 @@ test('safeParse should reject invalid url', () => {
       {
         path: 'website',
         message: 'The string for the field is invalid; It should be a url',
+      },
+      {
+        path: 'website',
+        message:
+          'The string for the field is invalid; It should have startsWith',
       },
     ],
     assertOpts
