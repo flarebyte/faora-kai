@@ -87,6 +87,27 @@ test('safeParse should reject string with custom single line test', () => {
   );
 });
 
+test('safeParse should reject string with custom single line test', () => {
+  const content = {
+    ...validContent,
+    someDate: new Date('not-a-date'),
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'human-friendly',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'someDate',
+        message: 'The date is invalid',
+      },
+    ],
+    assertOpts
+  );
+});
+
 test('safeParse should reject incorrect type', () => {
   const content = {
     ...validContent,

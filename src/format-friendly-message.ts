@@ -159,7 +159,7 @@ export const formatFriendlyMessage: FormatZodMessage = (
     case 'invalid_date': {
       return {
         path,
-        message: ['The date is invalid', `${issue.message}`].join('; '),
+        message: 'The date is invalid',
       };
     }
 
