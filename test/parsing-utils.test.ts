@@ -174,7 +174,7 @@ test('safeParse should reject invalid url', () => {
       {
         path: 'website',
         message:
-          'The string for the field is invalid;Invalid input: must start with "https://"',
+          'The string for the field is invalid; Invalid input: must start with "https://"',
       },
     ],
     assertOpts
@@ -243,7 +243,8 @@ test('safeParse should reject invalid union', () => {
     [
       {
         path: 'jour',
-        message: 'The union for the field is invalid; I would check',
+        message:
+          'The union for the field is invalid; I would review jour,lundi or jour,mardi',
       },
     ],
     assertOpts

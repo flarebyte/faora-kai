@@ -52,8 +52,8 @@ function extractUnionErrors(
 ): string {
   return issue.unionErrors
     .flatMap((err) => err.issues)
-    .map((i) => i.message + '???')
-    .join('.');
+    .map((i) => i.path)
+    .join(' or ');
 }
 
 export const formatMessage: FormatZodMessage = (
@@ -117,7 +117,7 @@ export const formatMessage: FormatZodMessage = (
         path,
         message: [
           'The union for the field is invalid',
-          `I would check ${extractUnionErrors(issue)}`,
+          `I would review ${extractUnionErrors(issue)}`,
         ].join('; '),
       };
     }
