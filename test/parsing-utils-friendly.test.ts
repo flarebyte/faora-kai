@@ -250,7 +250,7 @@ test('safeParse should reject number that are not finite', () => {
       },
       {
         path: 'rank',
-        message: 'The number is not finite; Number must be finite',
+        message: 'The number is not finite',
       },
     ],
     assertOpts

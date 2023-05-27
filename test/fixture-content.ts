@@ -40,6 +40,7 @@ export const schema = z.object({
     .refine(isSingleLine, {message: 'oneLine should be a single line'}),
   someDate: z.date(),
   activities: z.record(stringFields.string1To10, activity),
+  f1: z.function().args(z.string()).returns(z.number()),
 });
 export type TestSchema = z.infer<typeof schema>;
 export const largeString = (count: number) => 'a'.repeat(count);
@@ -67,4 +68,5 @@ export const validContent: TestSchema = {
       title: 'Sabre fencing',
     },
   },
+  f1: (value: string) => value.length,
 };

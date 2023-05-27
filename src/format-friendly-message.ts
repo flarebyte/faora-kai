@@ -166,7 +166,7 @@ export const formatFriendlyMessage: FormatZodMessage = (
     case 'not_finite': {
       return {
         path,
-        message: ['The number is not finite', `${issue.message}`].join('; '),
+        message: 'The number is not finite',
       };
     }
 
