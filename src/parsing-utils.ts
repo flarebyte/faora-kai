@@ -1,11 +1,11 @@
 import {type ZodSchema} from 'zod';
-import {formatMessage} from '../format-message.js';
 import {
   type Success,
   type FormatZodMessage,
   type ModelValidation,
 } from './model.js';
 import {formatMessageWithPrivacy} from './format-message-with-privacy.js';
+import {formatMessage} from './format-message.js';
 
 type ZodMessageFormatting = 'standard' | 'privacy-aware';
 

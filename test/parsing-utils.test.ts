@@ -29,7 +29,7 @@ const schema = z.object({
   kind: z.literal('test'),
   name: stringFields.string1To10,
   tags: z.array(stringFields.string1To20).min(1),
-  website: stringFields.string1To50.url(),
+  website: stringFields.string1To50.url().startsWith('https://'),
   color: z.enum(['blue', 'orange', 'red']).optional(),
   day: dayUnionField,
   jour: jourUnionField,
@@ -169,7 +169,12 @@ test('safeParse should reject invalid url', () => {
     [
       {
         path: 'website',
-        message: 'The string for the field is invalid; Invalid url and url',
+        message: 'The string for the field is invalid; Invalid url',
+      },
+      {
+        path: 'website',
+        message:
+          'The string for the field is invalid;Invalid input: must start with "https://"',
       },
     ],
     assertOpts
@@ -238,8 +243,7 @@ test('safeParse should reject invalid union', () => {
     [
       {
         path: 'jour',
-        message:
-          'The union for the field is invalid; I would check Required,Required',
+        message: 'The union for the field is invalid; I would check',
       },
     ],
     assertOpts

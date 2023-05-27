@@ -1,13 +1,8 @@
-import {type Primitive, type StringValidation, type z} from 'zod';
+import {type Primitive, type z} from 'zod';
 import {type FormatZodMessage, type ValidationError} from './model.js';
 
 const formatArray = (values: Array<string | number>) =>
   values.map((value) => `${value}`).join(',');
-
-const formatStringValidation = (stringValidation: StringValidation) =>
-  typeof stringValidation === 'string'
-    ? stringValidation
-    : JSON.stringify(stringValidation);
 
 const formatUnknown = (value: unknown) => {
   switch (typeof value) {
@@ -79,12 +74,9 @@ export const formatMessage: FormatZodMessage = (
     case 'invalid_string': {
       return {
         path,
-        message: [
-          'The string for the field is invalid',
-          `${issue.message} with constraint ${formatStringValidation(
-            issue.validation
-          )}`,
-        ].join('; '),
+        message: ['The string for the field is invalid', issue.message].join(
+          '; '
+        ),
       };
     }
 
@@ -134,7 +126,7 @@ export const formatMessage: FormatZodMessage = (
       return {
         path,
         message: [
-          `The ${issue.type} for the field is way too big`,
+          `The ${issue.type} for the field is too big`,
           `I would expect the maximum to be ${issue.maximum}`,
         ].join('; '),
       };
