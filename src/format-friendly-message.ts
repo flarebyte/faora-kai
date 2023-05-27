@@ -56,7 +56,7 @@ function extractUnionErrors(
     .join(' or ');
 }
 
-export const formatMessage: FormatZodMessage = (
+export const formatFriendlyMessage: FormatZodMessage = (
   issue: z.ZodIssue
 ): ValidationError => {
   const path = issue.path.join('.');
