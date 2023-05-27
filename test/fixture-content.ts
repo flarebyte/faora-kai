@@ -27,6 +27,8 @@ export const schema = z.object({
   color: z.enum(['blue', 'orange', 'red']).optional(),
   day: dayUnionField,
   jour: jourUnionField,
+  rank: z.number().int().gt(100).multipleOf(3).finite(),
+  negRank: z.number().negative().safe(),
 });
 export type TestSchema = z.infer<typeof schema>;
 export const largeString = (count: number) => 'a'.repeat(count);
@@ -45,4 +47,6 @@ export const validContent: TestSchema = {
   jour: {
     lundi: 'monday',
   },
+  rank: 333,
+  negRank: -1,
 };
