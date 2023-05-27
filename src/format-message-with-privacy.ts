@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {type StringValidation, type z} from 'zod';
 import {type FormatZodMessage, type ValidationError} from './model.js';
 
@@ -5,6 +6,25 @@ const formatStringValidation = (stringValidation: StringValidation) =>
   typeof stringValidation === 'string'
     ? `It should be a ${stringValidation}`
     : 'It should have ' + Object.keys(stringValidation).join(',');
+
+const privacyFirstMessages = {
+  invalid_type: 'The type for the field is invalid',
+  invalid_string: 'The string for the field is invalid',
+  invalid_enum_value: 'The enum for the field is invalid',
+  invalid_literal: 'The literal for the field is invalid',
+  invalid_union_discriminator:
+    'The union discriminator for the object is invalid',
+  invalid_union: 'The union for the field is invalid',
+  invalid_arguments: 'The arguments are invalid',
+  invalid_return_type: 'The return type is invalid',
+  invalid_date: 'The date is invalid',
+  not_finite: 'The number is not finite',
+  invalid_intersection_types: 'The intersection types are invalid',
+  not_multiple_of: 'The number is not the right multiple of',
+  unrecognized_keys: 'The keys are not recognized',
+  custom: 'The custom validation function did not pass',
+  default: 'The type for the field is incorrect',
+};
 
 export const formatMessageWithPrivacy: FormatZodMessage = (
   issue: z.ZodIssue
@@ -15,7 +35,7 @@ export const formatMessageWithPrivacy: FormatZodMessage = (
       return {
         path,
         message: [
-          'The type for the field is invalid',
+          privacyFirstMessages.invalid_type,
           `I would expect ${issue.expected} instead of ${issue.received}`,
         ].join('; '),
       };
@@ -25,7 +45,7 @@ export const formatMessageWithPrivacy: FormatZodMessage = (
       return {
         path,
         message: [
-          'The string for the field is invalid',
+          privacyFirstMessages.invalid_string,
           formatStringValidation(issue.validation),
         ].join('; '),
       };
@@ -34,28 +54,28 @@ export const formatMessageWithPrivacy: FormatZodMessage = (
     case 'invalid_enum_value': {
       return {
         path,
-        message: 'The enum for the field is invalid',
+        message: privacyFirstMessages.invalid_enum_value,
       };
     }
 
     case 'invalid_literal': {
       return {
         path,
-        message: 'The literal for the field is invalid',
+        message: privacyFirstMessages.invalid_literal,
       };
     }
 
     case 'invalid_union_discriminator': {
       return {
         path,
-        message: 'The union discriminator for the object is invalid',
+        message: privacyFirstMessages.invalid_union_discriminator,
       };
     }
 
     case 'invalid_union': {
       return {
         path,
-        message: 'The union for the field is invalid',
+        message: privacyFirstMessages.invalid_union,
       };
     }
 
@@ -76,63 +96,63 @@ export const formatMessageWithPrivacy: FormatZodMessage = (
     case 'invalid_arguments': {
       return {
         path,
-        message: 'The arguments are invalid',
+        message: privacyFirstMessages.invalid_arguments,
       };
     }
 
     case 'invalid_return_type': {
       return {
         path,
-        message: 'The return type is invalid',
+        message: privacyFirstMessages.invalid_return_type,
       };
     }
 
     case 'invalid_date': {
       return {
         path,
-        message: 'The date is invalid',
+        message: privacyFirstMessages.invalid_date,
       };
     }
 
     case 'not_finite': {
       return {
         path,
-        message: 'The number is not finite',
+        message: privacyFirstMessages.not_finite,
       };
     }
 
     case 'invalid_intersection_types': {
       return {
         path,
-        message: 'The intersection types are invalid',
+        message: privacyFirstMessages.invalid_intersection_types,
       };
     }
 
     case 'not_multiple_of': {
       return {
         path,
-        message: 'The number is not the right multiple of',
+        message: privacyFirstMessages.not_multiple_of,
       };
     }
 
     case 'unrecognized_keys': {
       return {
         path,
-        message: 'The keys are not recognized',
+        message: privacyFirstMessages.unrecognized_keys,
       };
     }
 
     case 'custom': {
       return {
         path,
-        message: 'The custom validation function did not pass',
+        message: privacyFirstMessages.custom,
       };
     }
 
     default: {
       return {
         path,
-        message: 'The type for the field is incorrect',
+        message: privacyFirstMessages.default,
       };
     }
   }
