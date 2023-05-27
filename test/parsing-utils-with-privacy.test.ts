@@ -81,8 +81,7 @@ test('safeParse should reject string too small', () => {
     [
       {
         path: 'name',
-        message:
-          'The string for the field is too small; I would expect the minimum to be 1',
+        message: 'The string for the field is too small',
       },
     ],
     assertOpts
@@ -103,8 +102,7 @@ test('safeParse should reject string too big', () => {
     [
       {
         path: 'name',
-        message:
-          'The string for the field is too big; I would expect the maximum to be 10',
+        message: 'The string for the field is too big',
       },
     ],
     assertOpts
@@ -147,8 +145,7 @@ test('safeParse should reject invalid enum', () => {
     [
       {
         path: 'color',
-        message:
-          'The enum for the field is invalid; I would expect any of blue,orange,red instead of purple',
+        message: 'The enum for the field is invalid',
       },
     ],
     assertOpts
@@ -169,7 +166,7 @@ test('safeParse should reject invalid url', () => {
     [
       {
         path: 'website',
-        message: 'The string for the field is invalid; Invalid url and url',
+        message: 'The string for the field is invalid; It should be a url',
       },
     ],
     assertOpts
@@ -190,7 +187,7 @@ test('safeParse should reject invalid literal', () => {
     [
       {
         path: 'kind',
-        message: 'The literal for the field is invalid; I would expect test',
+        message: 'The literal for the field is invalid',
       },
     ],
     assertOpts
@@ -214,8 +211,7 @@ test('safeParse should reject invalid discriminatedUnion', () => {
     [
       {
         path: 'day.kind',
-        message:
-          'The union discriminator for the object is invalid; I would expect any of monday,tuesday',
+        message: 'The union discriminator for the object is invalid',
       },
     ],
     assertOpts
@@ -238,8 +234,7 @@ test('safeParse should reject invalid union', () => {
     [
       {
         path: 'jour',
-        message:
-          'The union for the field is invalid; I would check Required,Required',
+        message: 'The union for the field is invalid',
       },
     ],
     assertOpts
