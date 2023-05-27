@@ -20,6 +20,11 @@ const jourUnionField = z.union([
     mardi: stringFields.string1To10,
   }),
 ]);
+
+const activity = z.object({
+  title: stringFields.string1To30,
+});
+
 export const schema = z.object({
   kind: z.literal('test'),
   name: stringFields.string1To10,
@@ -34,6 +39,7 @@ export const schema = z.object({
     .string()
     .refine(isSingleLine, {message: 'oneLine should be a single line'}),
   someDate: z.date(),
+  activities: z.record(stringFields.string1To10, activity),
 });
 export type TestSchema = z.infer<typeof schema>;
 export const largeString = (count: number) => 'a'.repeat(count);
@@ -56,4 +62,9 @@ export const validContent: TestSchema = {
   negRank: -1,
   oneLine: 'always looking for a cunning plan',
   someDate: new Date('1900-01-01'),
+  activities: {
+    fencing: {
+      title: 'Sabre fencing',
+    },
+  },
 };

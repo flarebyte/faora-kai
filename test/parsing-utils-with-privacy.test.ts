@@ -317,3 +317,28 @@ test('safeParse should reject invalid union', () => {
     assertOpts
   );
 });
+
+test('safeParse should reject invalid keys', () => {
+  const content = {
+    ...validContent,
+    activities: {
+      longlonglonglongKey: {
+        title: 'Such a long key',
+      },
+    },
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'privacy-first',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'activities.longlonglonglongKey',
+        message: 'The string for the field is too big',
+      },
+    ],
+    assertOpts
+  );
+});
