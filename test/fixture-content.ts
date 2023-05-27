@@ -33,6 +33,7 @@ export const schema = z.object({
   oneLine: z
     .string()
     .refine(isSingleLine, {message: 'oneLine should be a single line'}),
+  someDate: z.date(),
 });
 export type TestSchema = z.infer<typeof schema>;
 export const largeString = (count: number) => 'a'.repeat(count);
@@ -54,4 +55,5 @@ export const validContent: TestSchema = {
   rank: 333,
   negRank: -1,
   oneLine: 'always looking for a cunning plan',
+  someDate: new Date('1900-01-01'),
 };
