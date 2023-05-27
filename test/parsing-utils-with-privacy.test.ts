@@ -63,6 +63,27 @@ test('safeParse should reject string too big', () => {
   );
 });
 
+test('safeParse should reject string with custom single line test', () => {
+  const content = {
+    ...validContent,
+    oneLine: 'never\ntwo lines',
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'privacy-first',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'oneLine',
+        message: 'The custom validation function did not pass',
+      },
+    ],
+    assertOpts
+  );
+});
+
 test('safeParse should reject incorrect type', () => {
   const content = {
     ...validContent,

@@ -201,7 +201,7 @@ export const formatFriendlyMessage: FormatZodMessage = (
       return {
         path,
         message: [
-          'the custom validation function did not pass',
+          'The custom validation function did not pass',
           `${issue.message}`,
         ].join('; '),
       };

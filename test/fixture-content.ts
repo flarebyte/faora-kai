@@ -1,5 +1,6 @@
 import {z} from 'zod';
 import {stringFields} from '../src/primitive-fields.js';
+import {isSingleLine} from '../src/field-utils.js';
 
 const dayUnionField = z.discriminatedUnion('kind', [
   z.object({
@@ -29,6 +30,9 @@ export const schema = z.object({
   jour: jourUnionField,
   rank: z.number().int().gt(100).multipleOf(3).finite(),
   negRank: z.number().negative().safe(),
+  oneLine: z
+    .string()
+    .refine(isSingleLine, {message: 'oneLine should be a single line'}),
 });
 export type TestSchema = z.infer<typeof schema>;
 export const largeString = (count: number) => 'a'.repeat(count);
@@ -49,4 +53,5 @@ export const validContent: TestSchema = {
   },
   rank: 333,
   negRank: -1,
+  oneLine: 'always looking for a cunning plan',
 };
