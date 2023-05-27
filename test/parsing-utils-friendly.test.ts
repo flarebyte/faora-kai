@@ -214,6 +214,28 @@ test('safeParse should reject number that are not finite', () => {
   );
 });
 
+test('safeParse should reject number that beyond safe integer', () => {
+  const content = {
+    ...validContent,
+    negRank: Number.MIN_SAFE_INTEGER - 1,
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'human-friendly',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'negRank',
+        message:
+          'The number for the field is too small; I would expect the minimum to be -9007199254740991',
+      },
+    ],
+    assertOpts
+  );
+});
+
 test('safeParse should reject invalid discriminatedUnion', () => {
   const content = {
     ...validContent,

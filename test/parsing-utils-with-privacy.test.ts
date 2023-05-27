@@ -187,6 +187,27 @@ test('safeParse should reject number that are not finite', () => {
   );
 });
 
+test('safeParse should reject number that beyond safe integer', () => {
+  const content = {
+    ...validContent,
+    negRank: Number.MIN_SAFE_INTEGER - 1,
+  };
+  const result = safeParse<TestSchema>(content, {
+    schema,
+    formatting: 'privacy-first',
+  });
+  assertFailedResult(
+    result,
+    [
+      {
+        path: 'negRank',
+        message: 'The number for the field is too small',
+      },
+    ],
+    assertOpts
+  );
+});
+
 test('safeParse should reject invalid literal', () => {
   const content = {
     ...validContent,
