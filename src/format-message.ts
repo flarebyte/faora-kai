@@ -142,13 +142,75 @@ export const formatMessage: FormatZodMessage = (
       };
     }
 
-    default: {
+    case 'invalid_arguments': {
+      return {
+        path,
+        message: ['The arguments are invalid', `${issue.message}`].join('; '),
+      };
+    }
+
+    case 'invalid_return_type': {
+      return {
+        path,
+        message: ['The return type is invalid', `${issue.message}`].join('; '),
+      };
+    }
+
+    case 'invalid_date': {
+      return {
+        path,
+        message: ['The date is invalid', `${issue.message}`].join('; '),
+      };
+    }
+
+    case 'not_finite': {
+      return {
+        path,
+        message: ['The number is not finite', `${issue.message}`].join('; '),
+      };
+    }
+
+    case 'invalid_intersection_types': {
       return {
         path,
         message: [
-          'The type for the field is incorrect',
+          'The intersection types are invalid',
           `${issue.message}`,
         ].join('; '),
+      };
+    }
+
+    case 'not_multiple_of': {
+      return {
+        path,
+        message: [
+          'The number is not right multiple of',
+          `${issue.message}`,
+        ].join('; '),
+      };
+    }
+
+    case 'unrecognized_keys': {
+      return {
+        path,
+        message: ['The keys are not recognized', `${issue.message}`].join('; '),
+      };
+    }
+
+    case 'custom': {
+      return {
+        path,
+        message: [
+          'the custom validation function did not pass',
+          `${issue.message}`,
+        ].join('; '),
+      };
+    }
+
+    default: {
+      return {
+        path,
+        message: `The type for the field is incorrect`,
       };
     }
   }
