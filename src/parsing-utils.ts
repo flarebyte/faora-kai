@@ -5,9 +5,9 @@ import {
   type ModelValidation,
 } from './model.js';
 import {formatMessageWithPrivacy} from './format-message-with-privacy.js';
-import {formatMessage} from './format-message.js';
+import {formatMessage} from './format-message-friendly.js';
 
-type ZodMessageFormatting = 'standard' | 'privacy-aware';
+type ZodMessageFormatting = 'human-friendly' | 'privacy-first';
 
 type SafeParseOpts = {
   schema: ZodSchema;
@@ -16,11 +16,11 @@ type SafeParseOpts = {
 
 const getFormatter = (formatting: ZodMessageFormatting): FormatZodMessage => {
   switch (formatting) {
-    case 'standard': {
+    case 'human-friendly': {
       return formatMessage;
     }
 
-    case 'privacy-aware': {
+    case 'privacy-first': {
       return formatMessageWithPrivacy;
     }
 

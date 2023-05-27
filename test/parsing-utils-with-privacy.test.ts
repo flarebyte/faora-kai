@@ -16,7 +16,7 @@ test('safeParse should parse correct data', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertSuccessfulResult(result, content, assertOpts);
 });
@@ -28,7 +28,7 @@ test('safeParse should reject string too small', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -49,7 +49,7 @@ test('safeParse should reject string too big', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -70,7 +70,7 @@ test('safeParse should reject incorrect type', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -92,7 +92,7 @@ test('safeParse should reject invalid enum', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -113,7 +113,7 @@ test('safeParse should reject invalid url', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -139,7 +139,7 @@ test('safeParse should reject number under the minimum', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -164,7 +164,7 @@ test('safeParse should reject number that are not finite', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -194,7 +194,7 @@ test('safeParse should reject invalid literal', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -218,7 +218,7 @@ test('safeParse should reject invalid discriminatedUnion', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
@@ -241,7 +241,7 @@ test('safeParse should reject invalid union', () => {
   };
   const result = safeParse<TestSchema>(content, {
     schema,
-    formatting: 'privacy-aware',
+    formatting: 'privacy-first',
   });
   assertFailedResult(
     result,
