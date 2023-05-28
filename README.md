@@ -13,13 +13,36 @@ status](https://github.com/flarebyte/faora-kai/actions/workflows/main.yml/badge.
 > The Zod helper library, because sometimes you need a little help from a
 > Kryptonian
 
-Helper functions for zod libraries
+Helper functions for zod, the typeScript-first schema validation with static
+type inference
 
 ![Hero image for faora-kai](faora-kai-hero-512.jpeg)
 
 Highlights:
 
--   Take care of the boilerplate
+-   Simplify error handling with zod by using a custom formatter
+-   Protect sensitive data from leaking in error messages by using a
+    privacy-aware formatter
+-   Create a dictionary of string constraints based on the Fibonacci
+    sequence
+
+A few examples of commands:
+
+Parse an object using Zod validation:
+
+```bash
+const result = safeParse<TestSchema>(content, {schema, formatting:
+'human-friendly'});
+
+
+```
+
+Declare a string field from 1 to 10 characters:
+
+```bash
+stringFields.string1To10
+
+```
 
 ## Documentation and links
 
