@@ -80,7 +80,7 @@ test('safeParse should reject string with custom single line test', () => {
       {
         path: 'oneLine',
         message:
-          'The custom validation function did not pass; oneLine should be a single line',
+          'The custom validation function did not pass; The string should be a single line with less than 50 characters',
       },
     ],
     assertOpts

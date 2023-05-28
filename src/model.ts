@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import {type z} from 'zod';
 
-export type PrimitiveFieldValidator<K extends string | number | symbol> =
-  Record<K, z.ZodString>;
+export type StringFieldValidator<K extends string> = Record<K, z.ZodString>;
+export type StringEffectFieldValidator<K extends string> = Record<
+  K,
+  z.ZodEffects<z.ZodString, string, string>
+>;
 
 export interface Success<A> {
   status: 'success';

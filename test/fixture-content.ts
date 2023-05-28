@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {stringFields} from '../src/primitive-fields.js';
+import {stringEffectFields, stringFields} from '../src/primitive-fields.js';
 import {isSingleLine} from '../src/field-utils.js';
 
 const dayUnionField = z.discriminatedUnion('kind', [
@@ -35,9 +35,7 @@ export const schema = z.object({
   jour: jourUnionField,
   rank: z.number().int().gt(100).multipleOf(3).finite(),
   negRank: z.number().negative().safe(),
-  oneLine: z
-    .string()
-    .refine(isSingleLine, {message: 'oneLine should be a single line'}),
+  oneLine: stringEffectFields.string1To50Line,
   someDate: z.date(),
   activities: z.record(stringFields.string1To10, activity),
   f1: z.function().args(z.string()).returns(z.number()),
