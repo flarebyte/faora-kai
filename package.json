@@ -43,7 +43,6 @@
     "spec": "node --loader ts-node/esm .baldrick-zest.ts"
   },
   "dependencies": {
-    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/node": "^20.2.1",
@@ -53,5 +52,7 @@
     "typescript": "^5.0.4",
     "xo": "^0.54.2"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "zod": "3.x"
+  }
 }

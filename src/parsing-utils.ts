@@ -30,6 +30,12 @@ const getFormatter = (formatting: ZodMessageFormatting): FormatZodMessage => {
   }
 };
 
+/**
+ * Parses an object in a safe manner that does not throw exceptions
+ * @param content a javascript object (or JSON)
+ * @param opts options with schema and expected formatting
+ * @returns a successfullly parsed object or validation errors
+ */
 export function safeParse<M extends Record<string, unknown>>(
   content: unknown,
   opts: SafeParseOpts
@@ -55,6 +61,11 @@ export function safeParse<M extends Record<string, unknown>>(
   return failure;
 }
 
+/**
+ * Has the parsing of the object been successful
+ * @param validationResult A validation result
+ * @returns a successful validation result if any
+ */
 export function isParsingSuccessful<M extends Record<string, unknown>>(
   validationResult: ModelValidation<M>
 ): validationResult is Success<M> {

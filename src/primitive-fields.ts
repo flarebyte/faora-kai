@@ -31,6 +31,9 @@ type StringEffectFieldKey =
   | 'string1To80Line'
   | 'string1To140Line';
 
+/**
+ * Helpers for string fields vaguely based on a Fibonacci sequence
+ */
 export const stringFields: StringFieldValidator<StringFieldKey> = {
   string1To10: z.string().min(1).max(10),
   string1To20: z.string().min(1).max(20),
@@ -60,6 +63,9 @@ export const stringFields: StringFieldValidator<StringFieldKey> = {
 const singleLineMessage = (max: number) =>
   `The string should be a single line with less than ${max} characters`;
 
+/**
+ * Helpers for string fields that uses effect (ex: single line)
+ */
 export const stringEffectFields: StringEffectFieldValidator<StringEffectFieldKey> =
   {
     string1To10Line: z
