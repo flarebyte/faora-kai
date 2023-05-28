@@ -1,0 +1,15 @@
+functionName,bodyWidth,descendantCount,keywords,filename
+describeEnum,275,53,public expression for,enum-utils.ts
+extractUnionErrors,227,48,private,format-friendly-message.ts
+formatArray,95,27,private expression,format-friendly-message.ts
+formatFriendlyMessage,3429,391,public expression,format-friendly-message.ts
+formatMessageWithPrivacy,2648,284,public expression,format-message-with-privacy.ts
+formatPrimitive,302,45,private expression,format-friendly-message.ts
+formatPrimitives,83,17,private expression,format-friendly-message.ts
+formatStringValidation,212,32,private expression,format-message-with-privacy.ts
+formatUnknown,298,44,private expression,format-friendly-message.ts
+getFormatter,305,27,private expression,parsing-utils.ts
+isParsingSuccessful,196,28,public,parsing-utils.ts
+isSingleLine,69,16,public expression,field-utils.ts
+safeParse,655,106,public,parsing-utils.ts
+singleLineMessage,108,11,private expression,primitive-fields.ts

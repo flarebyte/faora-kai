@@ -1,15 +1,26 @@
 model:
   project:
     title: The Zod helper library, because sometimes you need a little help from a Kryptonian
-    description: Helper functions for zod libraries
+    description: Helper functions for zod, the typeScript-first schema validation with static type inference
     version: 0.1.0
     keywords:
       - zod
+      - validation
   readme:
     highlights:
-      - Take care of the boilerplate 
+      - Simplify error handling with zod by using a custom formatter
+      - Protect sensitive data from leaking in error messages by using a privacy-aware formatter
+      - Create a dictionary of string constraints based on the Fibonacci sequence
     links:
       - "[Npm dependencies](DEPENDENCIES.md)"
+    tags:
+      - image-hero
+    cheatsheet:
+      - title: Parse an object using Zod validation
+        example: |
+          const result = safeParse<TestSchema>(content, {schema, formatting: 'human-friendly'});
+      - title: Declare a string field from 1 to 10 characters
+        example: stringFields.string1To10
   github:
     account: flarebyte
     name: faora-kai
@@ -142,7 +153,8 @@ workflows:
       cli:
         title: Run client directly
         description: Run the client with ts-node during development
-        motivation: Simulate a CLI app in development without the need to install it
+        motivation:
+          Simulate a CLI app in development without the need to install it
           globally
         main:
           commands:
@@ -276,7 +288,8 @@ workflows:
               run: npx baldrick-dev-ts@latest markdown check -s .github/
       fix:
         title: Fix Markdown files
-        description: Modify the markdown documents to ensure they follow some consistent
+        description:
+          Modify the markdown documents to ensure they follow some consistent
           guidelines
         motivation: Make the markdown documents consistent in style
         main:
@@ -290,7 +303,8 @@ workflows:
     tasks:
       ready:
         title: Ready for publishing
-        description: Run a sequence of commands to check that the library is ready to be
+        description:
+          Run a sequence of commands to check that the library is ready to be
           published
         motivation: Detect quality flaws before pushing the code
         parameters:
@@ -411,7 +425,8 @@ workflows:
               title: Title for the pull request
               description: A short title used for the pull request
               message: Short title describing the pull request
-            - run: gh pr create --title {{escapeSpace _.category}}:{{escapeSpace _.title}}
+            - run:
+                gh pr create --title {{escapeSpace _.category}}:{{escapeSpace _.title}}
                 --body-file temp/pull_request_relevant.md
               title: Create the pull request
       publish:
@@ -484,7 +499,8 @@ workflows:
             - title: Create all github repositories
               run: mkdir -p .github/workflows .github/ISSUE_TEMPLATE
             - title: Github - create bug report form
-              run: npx baldrick-whisker@latest object .github/ISSUE_TEMPLATE/bug_report.yaml
+              run:
+                npx baldrick-whisker@latest object .github/ISSUE_TEMPLATE/bug_report.yaml
                 github:flarebyte:baldrick-reserve:data/ts/bug-report.yaml
             - title: Github - create feature request form
               run: npx baldrick-whisker@latest object
@@ -507,11 +523,13 @@ workflows:
               links:
                 - title: Specify files to ignore in source control
                   url: https://git-scm.com/docs/gitignore
-              run: npx baldrick-whisker@latest render --no-ext baldrick-broth.yaml
+              run:
+                npx baldrick-whisker@latest render --no-ext baldrick-broth.yaml
                 github:flarebyte:baldrick-reserve:template/ts/gitignore.hbs
                 .gitignore.sh
             - title: Create .editorconfig
-              run: npx baldrick-whisker@latest render --no-ext baldrick-broth.yaml
+              run:
+                npx baldrick-whisker@latest render --no-ext baldrick-broth.yaml
                 github:flarebyte:baldrick-reserve:template/editorconfig.hbs
                 .editorconfig.sh
               links:
@@ -566,7 +584,8 @@ workflows:
                 github:flarebyte:baldrick-reserve:template/ts/maintenance.hbs
                 MAINTENANCE.md
             - title: Create LICENSE
-              run: npx baldrick-whisker@latest render --no-ext baldrick-broth.yaml
+              run:
+                npx baldrick-whisker@latest render --no-ext baldrick-broth.yaml
                 github:flarebyte:baldrick-reserve:template/ts/license.hbs
                 LICENSE.md
             - title: Fix markdown
@@ -628,7 +647,8 @@ workflows:
       custom:
         title: Normalize using the custom script
         description: Normalize the project using a custom script for this project
-        motivation: Enable an imperative approach for some of normalisation to keep the
+        motivation:
+          Enable an imperative approach for some of normalisation to keep the
           model simple
         main:
           commands:
