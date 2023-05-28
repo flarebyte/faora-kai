@@ -27,7 +27,6 @@ class `format-message-with-privacy.ts`{
   - formatStringValidation()
   +formatMessageWithPrivacy()
 }
-class `index.ts`
 class `model.ts`
 class `parsing-utils.ts`{
   +safeParse()

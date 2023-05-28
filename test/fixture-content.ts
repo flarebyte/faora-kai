@@ -1,6 +1,5 @@
 import {z} from 'zod';
 import {stringEffectFields, stringFields} from '../src/primitive-fields.js';
-import {isSingleLine} from '../src/field-utils.js';
 
 const dayUnionField = z.discriminatedUnion('kind', [
   z.object({
